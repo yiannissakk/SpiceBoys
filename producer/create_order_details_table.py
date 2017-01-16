@@ -28,7 +28,6 @@ def create_order_details(num_orders):
     return data
 
 
-
 if __name__ == '__main__':
 
     num = sys.argv[1]  # first argument is number of records to create
@@ -39,8 +38,3 @@ if __name__ == '__main__':
         for record in order_details_data:
             json.dump(record, outfile, sort_keys=True)
             outfile.write('\n')
-
-
-
-
-
