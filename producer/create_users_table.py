@@ -29,7 +29,7 @@ def create_users(num_users):
         email = first_name.lower() + last_name.lower() + random.choice(email_suffixes)
 
         user_record = {'user_id': user_id, 'first_name': first_name, 'last_name': last_name, 'address': address,
-                     'state': state, 'zip_code': zip_code, 'phone': phone, 'email': email}
+                       'state': state, 'zip_code': zip_code, 'phone': phone, 'email': email}
 
         data.append(user_record)
 
@@ -38,7 +38,7 @@ def create_users(num_users):
 
 if __name__ == '__main__':
 
-    num = sys.argv[1]
+    num = sys.argv[1]  # first argument is number of user records to create
 
     user_data = create_users(int(num))
 
