@@ -1,65 +1,59 @@
-DROP TABLE IF EXISTS users CASCADE;
-CREATE  TABLE users
-(   usr_user_id         bigint PRIMARY KEY,
-    usr_first_name      varchar,
-    usr_last_name       varchar,
-    usr_address         varchar,
-    usr_state           varchar,
-    usr_zip_code        bigint,
-    usr_phone           bigint,
-    usr_email           varchar
+DROP SCHEMA SPICEBOYS CASCADE;
+CREATE SCHEMA SPICEBOYS;
+DROP TABLE IF EXISTS USERS CASCADE;
+CREATE  TABLE SPICEBOYS.USERS
+(   USR_USER_ID         bigint ,
+    USR_FIRST_NAME      varchar,
+    USR_LAST_NAME       varchar,
+    USR_ADDRESS         varchar,
+    USR_STATE           varchar,
+    USR_ZIP_CODE        bigint,
+    USR_PHONE           bigint,
+    USR_EMAIL           varchar
   )
 ;
 
-DROP TABLE IF EXISTS web_events CASCADE;
-CREATE  TABLE web_events
-(   wev_timestamp       timestamp,
-    wev_event_id        varchar PRIMARY KEY,
-    wev_user_id         bigint,
-    wev_user_orig_ip    varchar,
-    wev_user_browser    varchar,
-    wev_num_bytes       bigint,
-    wev_http_command    varchar,
-    wev_status          varchar,
-    wev_referring_url    varchar,
-    FOREIGN KEY (wev_user_id) REFERENCES users (usr_user_id)
+DROP TABLE IF EXISTS WEB_EVENTS CASCADE;
+CREATE  TABLE SPICEBOYS.WEB_EVENTS
+(   WEV_TIMESTAMP       timestamp,
+    WEV_EVENT_ID        varchar ,
+    WEV_USER_ID         bigint,
+    WEV_USER_ORIG_IP    varchar,
+    WEV_USER_BROWSER    varchar,
+    WEV_NUM_BYTES       bigint,
+    WEV_HTTP_COMMAND    varchar,
+    WEV_STATUS          varchar,
+    WEV_REFERRING_URL    varchar
   )
 ;
 
 DROP TABLE IF EXISTS PRODUCT CASCADE;
 
-CREATE TABLE PRODUCT(
-P_NAME VARCHAR,
-P_PRODUCT_ID BIGINT PRIMARY KEY,
-P_DESCRIPTION VARCHAR,
-P_CATEGORY BIGINT,
-P_PRICE BIGINT,
-P_MARGINAL_COST BIGINT,
-P_MANUFACTURER_ID BIGINT,
-P_WEIGHT BIGINT)
+CREATE TABLE SPICEBOYS.PRODUCT(
+    P_NAME VARCHAR,
+    P_PRODUCT_ID BIGINT ,
+    P_DESCRIPTION VARCHAR,
+    P_CATEGORY BIGINT,
+    P_PRICE BIGINT,
+    P_MARGINAL_COST BIGINT,
+    P_MANUFACTURER_ID BIGINT,
+    P_WEIGHT BIGINT)
 ;
 
 DROP TABLE IF EXISTS ORDERS CASCADE;
 
-CREATE TABLE ORDERS(
-O_ORDER_ID BIGINT,
-O_USER_ID BIGINT,
-O_TMSTMP TIMESTAMP, 
-PRIMARY KEY (O_ORDER_ID, O_USER_ID),
-FOREIGN KEY (O_USER_ID) REFERENCES users (usr_user_id)
-
+CREATE TABLE SPICEBOYS.ORDERS(
+    O_ORDER_ID BIGINT,
+    O_USER_ID BIGINT,
+    O_TMSTMP TIMESTAMP 
 )
 ;
 
 DROP TABLE IF EXISTS ORDER_DETAILS CASCADE;
 
-CREATE TABLE ORDER_DETAILS(
-OD_ORDER_ID BIGINT,
-OD_PRODUCT_ID BIGINT,
-OD_QUANTITY BIGINT,
-PRIMARY KEY (OD_ORDER_ID, OD_PRODUCT_ID)
--- FOREIGN KEY (OD_ORDER_ID) REFERENCES ORDERS (O_ORDER_ID),
--- FOREIGN KEY (OD_PRODUCT_ID) REFERENCES PRODUCT (P_PRODUCT_ID)
-
+CREATE TABLE SPICEBOYS.ORDER_DETAILS(
+    OD_ORDER_ID BIGINT,
+    OD_PRODUCT_ID BIGINT,
+    OD_QUANTITY BIGINT
 )
 ;
