@@ -5,6 +5,7 @@ import sys
 import json
 import time
 import datetime
+from csv import DictWriter
 
 def createWebEvents(nEvents):
     evId = 12345100
@@ -16,7 +17,8 @@ def createWebEvents(nEvents):
     # Orig IP scheme TBD
     webEvents = []
     for i in range(nEvents):
-        tStamp = time.time()
+        #tStamp = time.time()
+        tStamp = str(datetime.datetime.now())
         evId = evId + 1
         uId = uId + i%5
         origIP = '10.11.12.13' #TBD
@@ -31,9 +33,7 @@ def createWebEvents(nEvents):
                  'wev_user_id': uId, 'wev_user_orig_ip': origIP,
                  'wev_user_browser': uBrowser, 'wev_num_bytes': nBytes,
                  'wev_http_command': httpCommand, 'wev_status': evStatus,
-
-
-                'wev_referring_url': refURL}
+                 'wev_referring_url': refURL}
         
                  
         webEvents.append(eventRec)
@@ -43,8 +43,19 @@ def createWebEvents(nEvents):
 if __name__ == "__main__":
     numEvents = sys.argv[1]
     events_data = createWebEvents(int(numEvents))
+    
+    fieldnames = ['wev_timestamp','wev_event_id',
+                  'wev_user_id','wev_user_orig_ip', 
+                  'wev_user_browser','wev_num_bytes',
+                  'wev_http_command','wev_status', 'wev_referring_url']
 
-    with open('web_events_table.json', 'w') as outfile:
-        for record in events_data:
-            json.dump(record, outfile, sort_keys=True)
-            outfile.write('\n')
+    with open('web_events_table.csv', 'w') as outfile:
+        writer = DictWriter(outfile, fieldnames = fieldnames)
+        #writer.writeheader()
+        writer.writerows(events_data)
+
+
+    #with open('web_events_table.json', 'w') as outfile:
+    #    for record in events_data:
+    #        json.dump(record, outfile, sort_keys=True)
+    #        outfile.write('\n')
