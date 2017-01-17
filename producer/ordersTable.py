@@ -1,5 +1,15 @@
 import random
 import datetime
-with open("ordersTable.txt", "w") as table:
-    for i in range(1,101):
-            table.write("{order_id: " +str(i)+ ", user_id: " +str(random.randint(1,100))+ ", timestamp: " + str(datetime.datetime.now()) + "}")
+import json
+import csv
+from csv import DictWriter
+
+order_data = []
+
+for i in range(1,101):
+        order_data.append({"order_id": i, "user_id": random.randint(1,100), "timestamp": datetime.datetime.now()})
+
+fieldnames = ['order_id', 'user_id', 'timestamp']
+with open('ordersTable.csv', 'w') as outfile:
+        writer = DictWriter(outfile, fieldnames=fieldnames)
+        writer.writerows(order_data)
