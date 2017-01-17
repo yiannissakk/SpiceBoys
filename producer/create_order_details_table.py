@@ -1,6 +1,7 @@
 import sys
 import json
 import random
+from csv import DictWriter
 
 
 def create_order_details(num_orders):
@@ -34,7 +35,14 @@ if __name__ == '__main__':
 
     order_details_data = create_order_details(int(num))
 
-    with open('order_details_table.json', 'w') as outfile:
+    fieldnames = ['order_id','product_id','quantity']
+
+    with open('order_details_table.csv', 'w') as outfile:
+        writer = DictWriter(outfile, fieldnames=fieldnames)
+        writer.writerows(order_details_data)
+
+    """
         for record in order_details_data:
             json.dump(record, outfile, sort_keys=True)
             outfile.write('\n')
+    """
