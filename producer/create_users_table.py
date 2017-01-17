@@ -1,6 +1,7 @@
 import sys
 import json
 import random
+from csv import DictWriter
 
 first_names = ['John','Jack','Rob','Elena','Jiwon','Mackensie','Charlene','David','Scott','Brad','Melissa','Mel','Zach']
 last_names = ['Smith','Nguyen','Jackson','Roberts','Robertson','Baustista','Wright','Pollock','Anthony','Zenner','Perry']
@@ -13,7 +14,7 @@ states = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
 email_suffixes = ['@gmail.com','@hotmail.com','@yahoo.com','@aol.com']
 
 
-def create_users(num_users):
+def create_users_json(num_users):
 
     data = []
 
@@ -40,9 +41,16 @@ if __name__ == '__main__':
 
     num = sys.argv[1]  # first argument is number of user records to create
 
-    user_data = create_users(int(num))
+    user_data = create_users_json(int(num))
+    fieldnames = ['user_id','first_name','last_name','address', 'state','zip_code','phone','email']
 
-    with open('users_table.json', 'w') as outfile:
+    with open('users_table.csv', 'w') as outfile:
+        writer = DictWriter(outfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(user_data)
+
+    """
         for record in user_data:
             json.dump(record, outfile, sort_keys=True)
             outfile.write('\n')
+    """
