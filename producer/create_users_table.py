@@ -46,7 +46,6 @@ if __name__ == '__main__':
 
     with open('users_table.csv', 'w') as outfile:
         writer = DictWriter(outfile, fieldnames=fieldnames)
-        writer.writeheader()
         writer.writerows(user_data)
 
     """
