@@ -4,7 +4,7 @@ from collections import defaultdict
 import operator
 
 con=psycopg2.connect(dbname= 'spiceboysredshift', host='spice-boys-redshift-cluster.cp1oqvdsoh97.us-east-1.redshift.amazonaws.com', 
-port= '5439', user= 'spiceboy', password= 'SpiceBoys3')
+port= '5439', user= '', password= '')
 
 cur = con.cursor()
 
